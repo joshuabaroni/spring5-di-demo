@@ -1,12 +1,23 @@
 package guru.springframework;
 
+import guru.springframework.controllers.MyController;
+import guru.springframework.examplebeans.FakeDataSource;
+import guru.springframework.examplebeans.FakeJMSBroker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class DiDemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DiDemoApplication.class, args);
+		ApplicationContext ctx = SpringApplication.run(DiDemoApplication.class, args);
+		MyController controller = (MyController) ctx.getBean("myController");
+		FakeDataSource fakeDataSource = (FakeDataSource) ctx.getBean(FakeDataSource.class);
+		System.out.println(fakeDataSource.getUser());
+
+		FakeJMSBroker fakeJMSBroker = (FakeJMSBroker) ctx.getBean(FakeJMSBroker.class);
+		System.out.println(fakeJMSBroker.getUser());
 	}
+
 }
